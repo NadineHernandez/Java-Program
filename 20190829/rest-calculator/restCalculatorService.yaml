@@ -1,0 +1,93 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: REST Calculator
+  description: An API to do simple math problems.
+  
+servers: 
+  - url: http://localhost:8080
+    description: Local dev server
+    
+paths:
+  /add:
+    post:
+      summary: Adds the given numbers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operands'
+      responses:
+        '200':
+          description: Sum
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  /subtract:
+    post:
+      summary: Subtacts the given numbers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operands'
+      responses:
+        '200':
+          description: Difference
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  /multiply:
+    post:
+      summary: Multiplies the given numbers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operands'
+      responses:
+        '200':
+          description: Product
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  /divide:
+    post:
+      summary: Divides the given numbers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operands'
+      responses:
+        '200':
+          description: Quotient
+          content:
+            application/json:
+              schema:
+                type: number
+                format: float
+  
+components:
+  schemas:
+    Operands:
+      properties:
+        operand1:
+          type: integer
+          format: int64
+        operand2:
+          type: integer
+          format: int64
+      required: 
+        - operand1
+        - operand2

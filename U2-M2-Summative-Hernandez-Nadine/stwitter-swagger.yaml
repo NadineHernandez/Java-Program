@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Stwitter Project
+  description: a simple twitter-like web service
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8889'
+    description: Local dev server
+paths:
+  /posts:
+    post:
+      summary: Take in a PostViewModel object to save a Post
+      requestBody:
+        description: PostViewModel object representing Post we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the postviewmdoel object definition found at the bottom of the file
+              $ref: '#/components/schemas/PostViewModel'
+      responses:
+        '201':
+          description: a post view model object
+          content:
+            application/json:
+              schema:
+                #referencing the post view model object definition found at the bottom of the file
+                $ref: '#/components/schemas/PostViewModel'
+  /posts/{id}:
+    get:
+      summary: responds with post view model object
+      description: retrieve post view model object matching id
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: The id of the post object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: post view model object matching id
+          content:
+            application/json:
+              schema:
+                #referencing the post view model object definition found at the bottom of the file
+                $ref: '#/components/schemas/PostViewModel'
+  /posts/poster/{poster_name}:
+    get:
+      summary: responds with list of post view model objects
+      description: retrieve list of post view model objects matching poster
+      parameters: 
+        - name: poster_name
+          in: path
+          required: true
+          description: The poster name of the post objects you would like to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of post view model objects matching poster
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /comments:
+    post:
+      summary: Take in a Comment object to save a Comment
+      requestBody:
+        description: Comment object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the Comment object definition found at the bottom of the file
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '201':
+          description: a comment object
+          content:
+            application/json:
+              schema:
+                #referencing the comment object definition found at the bottom of the file
+                $ref: '#/components/schemas/Comment'
+components:
+  schemas:
+    Comment:
+      properties:
+        commentId:
+          type: integer
+        postId:
+          type: integer
+        createDate:
+          type: string
+        commenterName:
+          type: string
+        comment:
+          type: string
+      required:
+        - postId
+        - createDate
+        - commenterName
+        - comment
+    PostViewModel:
+      properties:
+        PostId:
+          type: integer
+        postDate:
+          type: string
+        posterName:
+          type: string
+        postContent:
+          type: string
+        comments:
+          type: array
+      required:
+        - postDate
+        - posterName
+        - postContent

@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Hello, REST
+  description: Hello World Service for REST
+  version: 0.0.1
+
+servers: 
+  - url: http://localhost:8080
+    description: Local dev server
+    
+paths:
+  /hello/{name}:
+    get:
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: Your name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Greeting
+          content:
+            application/json:
+              schema:
+                type: string
+      

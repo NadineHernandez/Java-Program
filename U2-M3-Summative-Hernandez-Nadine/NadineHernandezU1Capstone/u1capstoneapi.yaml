@@ -1,0 +1,529 @@
+openapi: 3.0.0
+info:
+  title: Game Store Project
+  description: A jdbc project that models a game store with games, consoles, and invoices
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /game:
+    post:
+      summary: create a game object
+      requestBody:
+        description: game object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the game object definition found at the bottom of the file
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: a game object
+          content:
+            application/json:
+              schema:
+                #referencing the game object definition found at the bottom of the file
+                $ref: '#/components/schemas/Game'
+    get:
+      summary: get all game object
+      responses:
+        '200':
+          description: a list of all game objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+          
+  /game/{game_id}:
+    put:
+      summary: update a game object
+      description: update game object matching game_id
+      parameters: 
+        - name: game_id
+          in: path
+          required: true
+          description: The id of the game object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        description: game object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the game object definition found at the bottom of the file
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: a success message
+    get:
+      summary: responds with game object
+      description: retrieve game object matching game_id
+      parameters: 
+        - name: game_id
+          in: path
+          required: true
+          description: The id of the game object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: game object matching game_id
+          content:
+            application/json:
+              schema:
+                #referencing the game object definition found at the bottom of the file
+                $ref: '#/components/schemas/Game'
+    delete:
+      summary: delete a game
+      description: deletes a game object matching customer_id
+      parameters:
+        - name: game_id
+          in: path
+          required: true
+          description: the id of the game object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: game object matching game_id successfully deleted
+  /game/studio/{studio}:
+    get:
+      summary: responds with list of game objects
+      description: retrieve list of game objects matching studio
+      parameters: 
+        - name: studio
+          in: path
+          required: true
+          description: The studio of the game objects you would like to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of game objects matching studio
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /game/esrb/{esrb_rating}:
+    get:
+      summary: responds with list of game objects
+      description: retrieve list of game objects matching esrb_rating
+      parameters: 
+        - name: esrb_rating
+          in: path
+          required: true
+          description: The esrb_rating of the game objects you would like to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of game objects matching esrb_rating
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /game/title/{title}:
+    get:
+      summary: responds with list of game objects
+      description: retrieve list of game objects matching title
+      parameters: 
+        - name: title
+          in: path
+          required: true
+          description: The title of the game objects you would like to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of game objects matching title
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /console:
+    post:
+      summary: create a console object
+      requestBody:
+        description: game console we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the console object definition found at the bottom of the file
+              $ref: '#/components/schemas/Console'
+      responses:
+        '200':
+          description: a console object
+          content:
+            application/json:
+              schema:
+                #referencing the console object definition found at the bottom of the file
+                $ref: '#/components/schemas/Console'
+    get:
+      summary: get all console objects
+      responses:
+        '200':
+          description: a list of all console objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /console/{console_id}:
+    put:
+      summary: update a console object
+      description: update console object matching console_id
+      parameters: 
+        - name: console_id
+          in: path
+          required: true
+          description: The id of the console object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        description: console object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the console object definition found at the bottom of the file
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: a success message
+    get:
+      summary: responds with console object
+      description: retrieve console object matching console_id
+      parameters: 
+        - name: console_id
+          in: path
+          required: true
+          description: The id of the console object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: console object matching console_id
+          content:
+            application/json:
+              schema:
+                #referencing the console object definition found at the bottom of the file
+                $ref: '#/components/schemas/Console'
+    delete:
+      summary: delete a console
+      description: deletes a console object matching console_id
+      parameters:
+        - name: console_id
+          in: path
+          required: true
+          description: the id of the console object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: console object matching console_id successfully deleted
+  /console/manufacturer/{manufacturer}:
+    get:
+      summary: responds with console objects
+      description: retrieve list of console objects matching manufacturer
+      parameters: 
+        - name: manufacturer
+          in: path
+          required: true
+          description: The manufacturer of the console objects you would like to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of console objects matching manufacturer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /tshirt:
+    post:
+      summary: create a t_shirt object
+      requestBody:
+        description: t_shirt we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the t_shirt object definition found at the bottom of the file
+              $ref: '#/components/schemas/T_Shirt'
+      responses:
+        '200':
+          description: a t_shirt object
+          content:
+            application/json:
+              schema:
+                #referencing the t_shirt object definition found at the bottom of the file
+                $ref: '#/components/schemas/T_Shirt'
+    get:
+      summary: get all tshirt object
+      responses:
+        '200':
+          description: a list of all tshirt objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /tshirt/{t_shirt_id}:
+    put:
+      summary: update a t_shirt object
+      description: update t_shirt object matching t_shirt_id
+      parameters: 
+        - name: t_shirt_id
+          in: path
+          required: true
+          description: The id of the t_shirt object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        description: t_shirt object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the t_shirt object definition found at the bottom of the file
+              $ref: '#/components/schemas/T_Shirt'
+      responses:
+        '200':
+          description: a success message
+    get:
+      summary: responds with t_shirt object
+      description: retrieve t_shirt object matching t_shirt_id
+      parameters: 
+        - name: t_shirt_id
+          in: path
+          required: true
+          description: The id of the t_shirt object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: t_shirt object matching t_shirt_id
+          content:
+            application/json:
+              schema:
+                #referencing the t_shirt object definition found at the bottom of the file
+                $ref: '#/components/schemas/T_Shirt'
+    delete:
+      summary: delete a t_shirt
+      description: deletes a t_shirt object matching t_shirt_id
+      parameters:
+        - name: t_shirt_id
+          in: path
+          required: true
+          description: the id of the t_shirt object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: t_shirt object matching t_shirt_id successfully deleted
+  /tshirt/color/{color}:
+    get:
+      summary: responds with list of tshirt objects
+      description: retrieve list of tshirt objects matching color
+      parameters: 
+        - name: color
+          in: path
+          required: true
+          description: The color of the tshirt objects you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: list of tshirt objects matching color
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /tshirt/size/{size}:
+    get:
+      summary: responds with list of tshirt objects
+      description: retrieve list of tshirt objects matching size
+      parameters: 
+        - name: size
+          in: path
+          required: true
+          description: The size of the tshirt objects you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: list of tshirt objects matching size
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /purchase:
+    post:
+      summary: create an invoice object
+      requestBody:
+        description: invoice we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the invoice object definition found at the bottom of the file, request should include only required fields
+              $ref: '#/components/schemas/Invoice'
+      responses:
+        '200':
+          description: an invoice object
+          content:
+            application/json:
+              schema:
+                #referencing the invoice object definition found at the bottom of the file
+                $ref: '#/components/schemas/Invoice'
+ 
+components:
+  schemas:
+    Game:
+      properties:
+        game_id:
+          type: integer
+        title:
+          type: string
+        esrb_rating:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        studio:
+          type: string
+        quantity:
+          type: integer
+      required: 
+        - title
+        - esrb_ratin
+        - description
+        - price
+        - studio
+        - quantity
+    Console:
+      properties:
+        console_id:
+          type: integer
+        model:
+          type: string
+        manufacturer:
+          type: string
+        memory_amount:
+          type: string
+        processor:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+      required: 
+        - model
+        - manufacturer
+        - memory_amount
+        - proessor
+        - price
+        - quanitity
+    T_Shirt:
+      properties:
+        t_shirt_id:
+          type: integer
+        size:
+          type: string
+        color:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        quantity:
+          type: integer
+      required: 
+        - size
+        - color
+        - description
+        - price
+        - quanitity
+    Invoice:
+      properties:
+        invoice_id:
+          type: integer
+        name:
+          type: string
+        street:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipcode:
+          type: string
+        item_type:
+          type: string
+        item_id:
+          type: integer
+        unit_price:
+          type: number
+        quantity:
+          type: integer
+        subtotal:
+          type: integer
+        tax:
+          type: number
+        processing_fee:
+          type: number
+        total:
+          type: number
+      required: 
+        - name
+        - street
+        - city
+        - state
+        - zip
+        - item_type
+        - item_id
+        - quantity
+          

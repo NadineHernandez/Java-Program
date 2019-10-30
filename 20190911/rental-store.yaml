@@ -1,0 +1,247 @@
+openapi: 3.0.0
+info:
+  title: Rental Store
+  description: A jdbc project that models a rental store with customers, items, and invoices
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /customer:
+    post:
+      summary: create a customer object
+      requestBody:
+        description: customer object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the customer object definition found at the bottom of the file
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: a customer object
+          content:
+            application/json:
+              schema:
+                #referencing the customer object definition found at the bottom of the file
+                $ref: '#/components/schemas/Customer'
+    put:
+      summary: update a customer object
+      responses:
+        '200':
+          description: a success message
+  /customer/{customer_id}:
+    get:
+      summary: responds with customer object
+      description: etrieve customer object matching customer_id
+      parameters: 
+        - name: customer_id
+          in: path
+          required: true
+          description: The id of the customer object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: customer object matching customer_id
+          content:
+            application/json:
+              schema:
+                #referencing the city object definition found at the bottom of the file
+                $ref: '#/components/schemas/Customer'
+    delete:
+      summary: delete a customer
+      description: delets a customer object matching customer_id
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          description: the id of the customer object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: customer object matching customerId successfully deleted
+  /items:
+    post:
+      summary: create an item
+      description: creates a new item object using request body
+      requestBody:
+        description: the item object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+                #referencing the customer object definition found at the bottom of the file
+              $ref: '#/components/schemas/Item'
+      responses:
+        '200':
+          description: item object created
+          content:
+            application/json:
+              schema:
+                #referencing the customer object definition found at the bottom of the file
+                $ref: '#/components/schemas/Item'
+    put:
+      summary: update an item
+      description: updates an oject using the provided request body
+      requestBody:
+        description: the item object we are updating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the customer object definiion found at the bottom of the file
+              $ref: '#/components/schemas/Item'
+      responses:
+        '200':
+          description: item successfully updated
+  /items/{item_id}:
+    get:
+      summary: responds with item object
+      description: retrieve the item object matching item_id
+      parameters: 
+        - name: item_id
+          in: path
+          required: true
+          description: The id of the item object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: item object matching itemId
+          content:
+            application/json:
+              schema:
+                #referencing the item object definition found at the bottom of the file
+                $ref: '#/components/schemas/Item'
+    delete:
+      summary: deletes an item
+      description: deletes the item object matching the given item_id
+      parameters:
+        - name: item_id
+          in: path
+          required: true
+          description: the id of the item object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: item object successfully deleted
+  /invoice:
+    post:
+      summary: creates a new invoice
+      description: creates a new invoice object using the request body
+      requestBody:
+        description: the item object we are updating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the invoice object definiion found at the bottom of the file
+              $ref: '#/components/schemas/Invoice'
+      responses:
+        '200':
+          description: invoice object
+          content:
+            application/json:
+              schema:
+                #referencing the invoice object definition found at the bottom of the file
+                $ref: '#/components/schemas/Invoice'
+  /invoice/{invoice_id}:
+    delete:
+      summary: deletes an invoice
+      description: deletes an invoice object matching the given invoice_id
+      parameters:
+        - name: invoice_id
+          in: path
+          required: true
+          description: the id of the invoice object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: invoice object successfully deleted
+  /invoice/{customer_id}:
+    get:
+      summary: retrieves an invoice
+      description: gets invoice object matching the given customer_id
+      parameters:
+        - name: customer_id
+          in: path
+          required: true
+          description: the id of the invoice object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: invoice object
+          content:
+            application/json:
+              schema:
+                #referencing the invoice object definition found at the bottom of the file
+                $ref: '#/components/schemas/Invoice'
+components:
+  schemas:
+    Customer:
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        company:
+          type: string
+        phone:
+          type: string
+      required: 
+        - first_name
+        - last_name
+        - email
+        - company
+        - phone
+    Item:
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        daily_rate:
+          type: string
+      required: 
+        - name
+        - description
+        - daily_rate
+    Invoice:
+      properties:
+        customer_id:
+          type: integer
+        order_date:
+          type: string
+        pickup_date:
+          type: string
+        return_date:
+          type: string
+        late_fee:
+          type: number
+      required: 
+        - customer_id
+        - order_date
+        - pickup_date
+        - return_date
+        - late_fee
+          

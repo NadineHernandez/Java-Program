@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: RESTCalculator
+  description: A simple calculator which performs addition, multiplication, subtraction, and division
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /add:
+    post:
+      summary: Adds two provided integers and returns their sum
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operand1:
+                  type: number
+                operand2:
+                  type: number
+      responses:
+        '200':
+          description: Numbers added successfully
+          content:
+            application/json:
+              schema:
+                type: number
+        '400':
+          description: Missing operands or operands are not both numbers
+  /multi:
+    post:
+      summary: Multiplies two provided integers and returns their product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operand1:
+                  type: number
+                operand2:
+                  type: number
+      responses:
+        '200':
+          description: Numbers multiplied successfully
+          content:
+            application/json:
+              schema:
+                type: number
+        '400':
+          description: Missing operands or operands are not both numbers
+  /subtract:
+    post:
+      summary: Subtracts two provided integers and returns their difference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operand1:
+                  type: number
+                operand2:
+                  type: number
+      responses:
+        '200':
+          description: Numbers subtracted successfully
+          content:
+            application/json:
+              schema:
+                type: number
+        '400':
+          description: Missing operands or operands are not both numbers
+  /divide:
+    post:
+      summary: Divides two provided integers and returns their quotient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operand1:
+                  type: number
+                operand2:
+                  type: number
+      responses:
+        '200':
+          description: Numbers divided successfully
+          content:
+            application/json:
+              schema:
+                type: number
+        '400':
+          description: Missing operands or operands are not both numbers
+                

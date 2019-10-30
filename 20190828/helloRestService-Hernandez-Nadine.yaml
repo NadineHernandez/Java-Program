@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title: helloRestService
+  description: A simple servic that retuns Hello + name
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /hello{name}:
+    get:
+      summary: responds with a greeting to the user with the provided name string variable
+      parameters: 
+        - name: name
+          in: path
+          required: true
+          description: name of the user we would like to greet
+          schema:
+            type: string
+            minimum: 1
+      responses:
+        '200':
+          description: Greeting delivered to given name.
+          content:
+            application/json:
+              schema:
+                type: string
+            
+      

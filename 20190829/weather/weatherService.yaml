@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  title: Weather API Service
+  description: A simple API for current weather
+  version: 0.0.1
+servers: 
+  - url: http://localhost:8080
+    description: Local dev server
+  
+paths:
+  /temp/{zipcode}:
+    get:
+      summary: Returns the current temperature for the given zipcode
+      parameters: 
+        - name: zipcode
+          in: path
+          required: true
+          description: Zipcode for which you would like the current temperature
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Temperature object with curent temperature.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Temperature'
+                
+  /conditions/{zipcode}:
+    get:
+      summary: Returns the current conditions for the given zipcode
+      parameters: 
+        - name: zipcode
+          in: path
+          required: true
+          description: Zipcode for which you would like the current temperature
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conditions object with current conditions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conditions'
+    
+components:
+  schemas:
+  
+    Temperature:
+      type: object
+      properties:
+        fahrenheit:
+          type: number
+        celsius:
+          type: number
+          
+    Conditions:
+      type: object
+      properties:
+        fahrenheit:
+          type: number
+        celsius:
+          type: number        
+        windSpeed:
+          type: number
+        windDirection:
+          type: string
+        skies:
+          type: string
+        precipitation:
+          type: string

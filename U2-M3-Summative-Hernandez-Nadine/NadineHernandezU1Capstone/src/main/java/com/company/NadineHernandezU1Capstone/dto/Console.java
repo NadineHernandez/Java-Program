@@ -1,0 +1,116 @@
+package com.company.NadineHernandezU1Capstone.dto;
+
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
+import java.util.Objects;
+
+public class Console {
+    private Integer console_id;
+    @NotEmpty(message = "model cannot be empty")
+    @Size(max = 50, message = "model must be less than 50 characters")
+    private String model;
+    @NotEmpty(message = "manufacturer cannot be empty")
+    @Size(max = 50, message = "manufacturer must be less than 50 characters")
+    private String manufacturer;
+    @NotEmpty(message = "memory_amount cannot be empty")
+    @Size(max = 20, message = "memory amount must be less than 20 characters")
+    private String memory_amount;
+    @NotEmpty(message = "processor cannot be empty")
+    @Size(max = 20, message = "processor must be less than 20 characters")
+    private String processor;
+    @NotNull(message = "price cannot be null")
+    @Min(value = 0, message = "Price must be greater than 0")
+    @Digits(integer = 5, fraction = 2, message = "Incorrect price format")
+    private BigDecimal price;
+    @NotNull(message = "Quantity cannot be null")
+    @Min(value = 0, message = "Quantity must be greater than 0")
+    private Integer quantity;
+
+    public Integer getConsole_id() {
+        return console_id;
+    }
+
+    public void setConsole_id(Integer console_id) {
+        this.console_id = console_id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getMemory_amount() {
+        return memory_amount;
+    }
+
+    public void setMemory_amount(String memory_amount) {
+        this.memory_amount = memory_amount;
+    }
+
+    public String getProcessor() {
+        return processor;
+    }
+
+    public void setProcessor(String processor) {
+        this.processor = processor;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Console console = (Console) o;
+        return Objects.equals(console_id, console.console_id) &&
+                model.equals(console.model) &&
+                manufacturer.equals(console.manufacturer) &&
+                memory_amount.equals(console.memory_amount) &&
+                processor.equals(console.processor) &&
+                price.equals(console.price) &&
+                quantity.equals(console.quantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(console_id, model, manufacturer, memory_amount, processor, price, quantity);
+    }
+
+    @Override
+    public String toString() {
+        return "Console{" +
+                "console_id=" + console_id +
+                ", model='" + model + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", memory_amount='" + memory_amount + '\'' +
+                ", processor='" + processor + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
+}

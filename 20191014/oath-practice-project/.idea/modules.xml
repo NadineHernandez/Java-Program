@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/auth-server/auth-server.iml" filepath="$PROJECT_DIR$/auth-server/auth-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day-converter-service/day-converter-service.iml" filepath="$PROJECT_DIR$/day-converter-service/day-converter-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hello-service/hello-service.iml" filepath="$PROJECT_DIR$/hello-service/hello-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/month-converter-service/month-converter-service.iml" filepath="$PROJECT_DIR$/month-converter-service/month-converter-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/oath-practice-project.iml" filepath="$PROJECT_DIR$/.idea/oath-practice-project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rest-calculator-service/rest-calculator-service.iml" filepath="$PROJECT_DIR$/rest-calculator-service/rest-calculator-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weather-service/weather-service.iml" filepath="$PROJECT_DIR$/weather-service/weather-service.iml" />
+    </modules>
+  </component>
+</project>

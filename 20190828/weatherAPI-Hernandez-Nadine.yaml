@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: weatherAPI
+  description: A simple service that returns the weather conditions including temperature and weather conditions including wind speed, wind direction, skies, and precipitation
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /temp/{zipcode}:
+    get:
+      summary: returns temperature information for given zipcode
+      parameters: 
+        - name: zipcode
+          in: path
+          required: true
+          description: zip code of area you want the temperature for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: temperature object matching zipcode
+          content:
+            application/json:
+              schema:
+                #We are referencing the temperature object definition found at the bottom of the file.
+                $ref: '#/components/schemas/Conditions'
+  /conditions/{zipcode}:
+    get:
+      summary: returns weather condition information for given zipcode
+      parameters:
+        - name: zipcode
+          in: path
+          required: true
+          description: zip code of the area you want the weather conditions for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: weather conditions object matching zipcode
+          content:
+            application/json:
+              schema:
+                #We are referencing the conditions object and temperature object definition found at the bottom of the file.
+                $ref: '#/components/schemas/Conditions'
+components:
+  schemas:
+    Temperature:
+      properties:
+        fahrenheit:
+          type: number
+        celsius:
+          type: number
+    Conditions:
+      properties:
+        windSpeed:
+          type: number
+        windDirection:
+          type: string
+        skies:
+          type: string
+        precipitation:
+          type: string
+        temperature:
+          $ref: '#/components/schemas/Temperature'
+            

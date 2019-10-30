@@ -1,0 +1,10 @@
+All approaches accomplish essentially the same thing. However, there are different requirements and implementations for each.
+The concrete approach allows us to extend the parent vehicle class so that child classes have access to parent methods and properties
+without us having to rewrite them in the child class. The drawback is that in order to add to the parent methods we must
+first include super();
+The interface implementation does insure that all classes implementing the interface do contain the methods contained in the interface.
+The upside of this method is that all class methods can be easily written specifically for the unique needs of the associated class.
+The downside is that we do have to write each individually and we can't inherit properties from the interface like with extends class.
+I find that the abstract approach best suits this problem. It allows us to define methods and properties and inherit them without having
+to fully flesh them out, which would limit their usefulness for different classes. It minimizes rewriting code and also allows us the
+flexibility to individually define methods without jumping through hoops.

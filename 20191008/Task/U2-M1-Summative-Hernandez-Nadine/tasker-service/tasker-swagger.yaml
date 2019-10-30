@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: Tasker Project
+  description: a simple task-tracking web service
+  version: 0.0.1
+servers: 
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /tasks:
+    post:
+      summary: create a Task object
+      requestBody:
+        description: task object we are creating
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the game object definition found at the bottom of the file
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: a task view model object
+          content:
+            application/json:
+              schema:
+                #referencing the game object definition found at the bottom of the file
+                $ref: '#/components/schemas/TaskViewModel'
+    get:
+      summary: get all task view model objects
+      responses:
+        '200':
+          description: a list of all task view model objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    put:
+      summary: update a task object
+      description: update task object matching id
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: The id of the task object you would like to update
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        description: updated task object
+        required: true
+        content:
+          application/json:
+            schema:
+              #referencing the game object definition found at the bottom of the file
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: a success message
+  /tasks/{id}:
+    get:
+      summary: responds with task view model object
+      description: retrieve task view model object matching id
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          description: The id of the task object you would like to get
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: task view model object matching id
+          content:
+            application/json:
+              schema:
+                #referencing the game object definition found at the bottom of the file
+                $ref: '#/components/schemas/TaskViewModel'
+    delete:
+      summary: delete a task
+      description: deletes a task object matching id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: the id of the task object you would like to delete
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: successfully deleted
+  /tasks/category/{category}:
+    get:
+      summary: responds with list of task view model objects
+      description: retrieve list of task view model objects matching category
+      parameters: 
+        - name: category
+          in: path
+          required: true
+          description: The category of the task objects you would like to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of task view model objects matching category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  schemas:
+    Task:
+      properties:
+        task_id:
+          type: integer
+        task_description:
+          type: string
+        create_date:
+          type: string
+        due_date:
+          type: string
+        category:
+          type: string
+      required:
+        - task_description
+        - create_date
+        - due_date
+        - category
+    TaskViewModel:
+      properties:
+        task_id:
+          type: integer
+        task_description:
+          type: string
+        create_date:
+          type: string
+        due_date:
+          type: string
+        category:
+          type: string
+        advertisement:
+          type: object
+      required:
+        - task_id
+        - task_description
+        - create_date
+        - due_date
+        - category
+        - advertisement
